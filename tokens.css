@@ -1,0 +1,23 @@
+/* Hallmark Studio · portable tokens · 2026-11-02 */
+@font-face{font-family:'Space Grotesk';src:url('./assets/fonts/space-grotesk.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('./assets/fonts/noto-sans-sc.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+:root {
+  --color-paper: oklch(97.3995% 0.006678 115.7041);
+  --color-surface: oklch(95.2622% 0.012651 126.3727);
+  --color-ink: oklch(30.9057% 0.030617 160.9468);
+  --color-muted: oklch(51.4950% 0.026043 151.2215);
+  --color-accent: oklch(53.2751% 0.081813 138.5680);
+  --color-rule: oklch(85.4708% 0.024316 133.4853);
+  --color-control-border: oklch(59.8129% 0.031095 146.7919);
+  --color-focus: oklch(48.5348% 0.080095 138.9171);
+  --color-error: oklch(46.8484% 0.103353 30.1224);
+  --font-display:'Space Grotesk','Noto Sans SC',sans-serif;
+  --font-body:'Noto Sans SC','Microsoft YaHei','PingFang SC',sans-serif;
+  --space-2xs:.25rem; --space-xs:.5rem; --space-sm:.75rem; --space-md:1rem; --space-lg:1.5rem; --space-xl:2.5rem; --space-2xl:4rem; --space-3xl:6rem;
+  --text-xs:var(--text-sm); --text-sm:.875rem; --text-base:1rem; --text-title:clamp(1.5rem,2.4vw,2rem); --text-heading:clamp(1.75rem,3vw,2.5rem); --text-display:clamp(2.25rem,3.8vw,3.75rem);
+  --page-width:80rem; --page-gutter:clamp(1rem,4vw,4rem); --control-height:2.75rem;
+  --radius-control:.25rem; --radius-media:.375rem; --rule-size:1px; --rule-focus:3px;
+  --ease-out:cubic-bezier(.16,1,.3,1); --ease-in:cubic-bezier(.7,0,.84,0); --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --dur-micro:120ms; --dur-short:220ms; --dur-long:420ms;
+  --z-raised:10; --z-modal:400;
+}

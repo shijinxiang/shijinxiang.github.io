@@ -1,0 +1,8 @@
+施金翔 · 个人项目介绍影片
+
+画面：本人项目的真实界面，使用独立演示状态；VoiceOps 包含模拟转写。
+动态模板参考：video-shotcraft / VincentWei
+https://vincentwei1021.github.io/video-shotcraft/
+采用 brand-ink-open、basic-3d-scene、paper-title-card 的运动语法，按个人作品内容适配。
+音乐与音效：video-shotcraft 自带许可音频，具体授权记录保留在可编辑影片工程 public/audio/ATTRIBUTION.md。
+字体：Space Grotesk、Noto Sans SC，SIL Open Font License；许可文件位于 ../fonts/。

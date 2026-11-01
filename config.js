@@ -23,3 +23,30 @@ window.PORTFOLIO_CONFIG = {
     'myweb': {title:'ICT 昇腾 AI 备考系统', category:'web', description:'面向 ICT 昇腾 AI 备考的单页练习系统，提供练习与考试模式、答题计时和错题重测。', tags:['HTML','JavaScript','Exam']},
   },
 };
+
+window.PORTFOLIO_CONFIG.projectDetails = {
+  rag: {
+    kind: '知识检索与智能体', image: './assets/screens/rag.webp', imageAlt: '企业知识库 RAG 的真实问答工作空间',
+    points: ['文档处理与混合检索', '来源引用与 Agent 工具编排'],
+    features: ['上传与解析 PDF、DOCX、Markdown 和 TXT 文档。', '结合向量与关键词检索组织上下文，回答保留来源引用。', '通过 LangGraph 编排路由与工具调用，并提供角色权限和异步处理。'],
+    note: '项目原型。实际向量化和回答生成需配置模型服务；图中为示例工作空间。'
+  },
+  VoiceOps: {
+    kind: '售后流程自动化 · 演示原型', image: './assets/screens/voiceops.webp', imageAlt: 'VoiceOps 独立演示环境中的速记与流转工作台',
+    points: ['政策知识匹配与处理建议', '人工确认与工单流转'],
+    features: ['围绕退货、维修、物流咨询组织售后会话。', '将音频上传、模拟转写、信息脱敏与知识检索串入同一流程。', '提供人工确认建单、幂等处理与通知接口。'],
+    note: '语音转写与默认通知包含模拟实现。截图使用独立演示数据，展示流程和界面结构。'
+  },
+  'open-prompt': {
+    kind: 'Windows 本地工具', image: './assets/screens/open-prompt.webp', imageAlt: '开放题记录库中的独立演示记录',
+    points: ['问题、考点和回复统一收录', '本地资料、截图与备份'],
+    features: ['将题目、关键洞察、考点与多个模型的回复放在同一记录中。', '支持截图附件、归档筛选和五模型排序资料。', '提供 JSON 备份、TXT 导出与配套 Chrome 填写助手。'],
+    note: 'Windows 桌面应用。图中为专门制作的界面演示记录，不包含真实模型评测结果。'
+  },
+  'deskpet-WDY': {kind:'Windows 桌面工具', features:['通过桌宠入口使用截图 OCR 翻译。','结合 TypeWords 进行打字记词。','使用 C#、WPF 与 .NET 8 构建桌面界面。']},
+  website: {kind:'在线学习网站', features:['按章节组织题目与练习。','整理错题、收藏和章节统计。','在浏览器本地保存学习记录。']},
+  dongVSjin: {kind:'Godot 游戏原型', features:['2D 像素横版格斗玩法。','本地双人对战、练习与合作闯关模式。'],note:'玩法原型，运行方式和操作说明见仓库。'},
+  heroVSgrandpa: {kind:'Godot 动作 Demo', features:['主角与武士的横版战斗场景。','连招、二段跳与战斗 AI 的玩法探索。'],note:'游戏 Demo，侧重战斗机制探索。'},
+  wwweb: {kind:'静态学习网站', features:['分类练习与错题、收藏筛选。','使用浏览器本地存储记录学习状态。']},
+  myweb: {kind:'ICT 昇腾 AI 备考工具', features:['练习与考试两种答题模式。','答题计时、成绩统计和错题重测。']}
+};

@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-02",
+  "scope": "single-page redesign",
+  "baseline_commit": "2873ebb2d74293d29e3af77f2c9aac714270d79b",
+  "framework": "vanilla HTML/CSS/JavaScript on GitHub Pages",
+  "previous_palette": [
+    "#f7f8f2",
+    "#273329",
+    "#d8efc5"
+  ],
+  "previous_fonts": [
+    "DM Sans",
+    "Manrope",
+    "Microsoft YaHei"
+  ],
+  "motion": "CSS interactions; user explicitly requested looping project film",
+  "chosen": {
+    "macrostructure": "Split Studio",
+    "theme": "Studio adapted to existing forest palette",
+    "nav": "N9 Edge aligned minimal",
+    "footer": "Ft6 Letter close",
+    "fonts": [
+      "Space Grotesk",
+      "Noto Sans SC"
+    ]
+  },
+  "modified": [
+    "index.html",
+    "app.js",
+    "config.js",
+    "README.md"
+  ],
+  "added": [
+    "tokens.css",
+    "studio.css",
+    "assets/media",
+    "assets/screens",
+    "assets/fonts"
+  ],
+  "removed": []
+}
