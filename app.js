@@ -8,14 +8,18 @@
   const categories = {web:'AI / Web',tools:'效率工具',creative:'创意实验'};
   const cacheKey = 'portfolio-public-repos-v3:' + account;
   const cacheTTL = 30 * 60 * 1000;
+  const covers = {
+    'deskpet-WDY':{mark:'Aa',label:'TRANSLATEPET'},
+    website:{mark:'学 / 练',label:'STUDY & PRACTICE'},
+    dongVSjin:{mark:'D × J',label:'GODOT / TWO PLAYERS'},
+    heroVSgrandpa:{mark:'H / G',label:'PIXEL COMBAT'},
+    wwweb:{mark:'温 / 习',label:'STUDY ARCHIVE'},
+    myweb:{mark:'AI / ICT',label:'ASCEND AI PRACTICE'}
+  };
   let rawRepos = Array.isArray(snapshot.repos) ? snapshot.repos : [];
   let fetchedAt = Number(snapshot.fetchedAt) || 0;
-  let projects = [];
-  let filter = 'all';
-  let updating = false;
-  let dialogOpener = null;
-  let selectedProject = '';
-  const dialog = $('#projectDialog');
+  let projects = [], selected = [];
+  let filter = 'all', activeName = '', updating = false;
 
   function safeUrl(value) {
     try {
@@ -70,26 +74,54 @@
       return parts?.length ? parts.every(part=>words.some(word=>word.startsWith(part))) : text.includes(term);
     });
   }
+  const projectId = p => 'project-' + p.name.toLowerCase();
+  const number = value => String(value).padStart(2,'0');
   function tagsHtml(tags) { return '<ul class="tech-list">'+tags.map(t=>'<li>'+escape(t)+'</li>').join('')+'</ul>'; }
-  function featureHtml(project) {
-    const p=project,d=p.details, name=escape(p.name), title=escape(p.title);
-    return '<article class="work-row" data-repo="'+name+'"><div class="work-copy"><p class="work-type">'+escape(d.kind || categories[p.category])+'</p><h3>'+title+'</h3><p class="work-description">'+escape(p.description)+'</p>'+
-      (d.points?.length?'<ul class="work-points">'+d.points.map(point=>'<li>'+escape(point)+'</li>').join('')+'</ul>':'')+
-      tagsHtml(p.tags)+'<div class="work-actions"><button class="outline-button" data-project="'+name+'" aria-label="了解'+title+'项目">了解项目 <span aria-hidden="true">↗</span></button><a class="text-link" href="'+escape(p.url)+'" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看'+title+'源码">查看源码 ↗</a></div></div>'+
-      '<figure class="work-media"><button class="work-image" data-project="'+name+'" aria-label="查看'+title+'的界面与介绍"><img src="'+escape(d.image)+'" alt="'+escape(d.imageAlt || p.title+'项目界面')+'" width="1440" height="900" loading="lazy" decoding="async"></button><figcaption>真实界面 · 演示数据</figcaption></figure></article>';
+  function coverHtml(p) {
+    const c = covers[p.name] || {mark:p.name.slice(0,2).toUpperCase(),label:p.name};
+    return '<div class="identity-cover" aria-hidden="true"><span class="cover-top">SHIJINXIANG / '+escape(categories[p.category].toUpperCase())+'</span><span class="cover-monogram">'+escape(c.mark)+'</span><span class="cover-bottom">'+escape(c.label)+'</span></div>';
   }
-  function itemHtml(p) {
-    const title=escape(p.title), name=escape(p.name);
-    return '<article class="project-item" data-repo="'+name+'"><h3><button class="project-name" data-project="'+name+'" title="'+title+'">'+title+'</button></h3><p class="item-description">'+escape(p.description)+'</p><div class="item-meta"><span>'+escape(p.details.kind || categories[p.category])+'</span>'+
-      (p.homepage?'<a href="'+escape(p.homepage)+'" target="_blank" rel="noopener noreferrer">在线体验 ↗</a>':'')+
-      '</div><button class="item-action" data-project="'+name+'" aria-label="了解'+title+'项目">↗</button></article>';
+  function cardHtml(p, depth, position) {
+    const front = depth===0, href='#'+projectId(p);
+    return '<'+(front?'a href="'+href+'" data-jump="'+escape(p.name)+'" aria-label="查看'+escape(p.title)+'的下方详情"':'div aria-hidden="true"')+' class="deck-card" data-depth="'+depth+'"><div class="card-kicker"><span>PROJECT / '+number(position+1)+'</span><span>'+escape(categories[p.category])+'</span></div><div class="card-visual">'+
+      (p.details.image?'<img src="'+escape(p.details.image)+'" alt="" width="1440" height="900" loading="lazy" decoding="async">':coverHtml(p))+
+      '</div><div class="card-footer"><span>'+escape(p.title)+'</span><span aria-hidden="true">↘</span></div></'+(front?'a':'div')+'>';
+  }
+  function renderDeck() {
+    const p=selected.find(p=>p.name===activeName) || selected[0];
+    if(!p) return;
+    activeName=p.name;
+    const index=selected.indexOf(p);
+    $('#stackCopy').innerHTML='<p class="stack-number"><strong>'+number(index+1)+'</strong><span aria-hidden="true"></span>'+number(selected.length)+' PROJECTS</p><p class="eyebrow">'+escape(p.details.kind || categories[p.category])+'</p><h3>'+escape(p.title)+'</h3><p class="stack-description">'+escape(p.description)+'</p>'+tagsHtml(p.tags)+'<a class="text-link" href="#'+projectId(p)+'" data-jump="'+escape(p.name)+'">查看项目详情 <span aria-hidden="true">↓</span></a>';
+    $('#projectDeck').innerHTML=Array.from({length:Math.min(3,selected.length)},(_,depth)=>{
+      const position=(index+depth)%selected.length;
+      return cardHtml(selected[position],depth,position);
+    }).join('');
+    $('#deckPosition').textContent=number(index+1)+' / '+number(selected.length);
+    $('#previousProject').disabled=selected.length<2;
+    $('#nextProject').disabled=selected.length<2;
+    document.querySelectorAll('#projectIndex a').forEach(a=>{
+      if(a.dataset.jump===activeName) a.setAttribute('aria-current','true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  function detailHtml(p, index) {
+    const d=p.details, id=projectId(p), points=d.points?.length?d.points:(d.features||[]).slice(0,2);
+    return '<article class="work-row" id="'+id+'" data-repo="'+escape(p.name)+'"><figure class="work-media">'+
+      (d.image?'<div class="work-image"><img src="'+escape(d.image)+'" alt="'+escape(d.imageAlt||p.title+'项目界面')+'" width="1440" height="900" loading="lazy" decoding="async"></div>':coverHtml(p))+
+      '<figcaption><span>'+ (d.image?'真实界面 · 演示数据':'项目封面')+'</span><span>'+number(index+1)+' / '+escape(p.name)+'</span></figcaption></figure>'+
+      '<div class="work-copy"><p class="work-type">'+escape(d.kind||categories[p.category])+(p.archived?' · 已归档':'')+'</p><h3 id="'+id+'-title" tabindex="-1">'+escape(p.title)+'</h3><p class="work-description">'+escape(p.description)+'</p>'+
+      (points.length?'<ul class="work-points">'+points.map(point=>'<li>'+escape(point)+'</li>').join('')+'</ul>':'')+tagsHtml(p.tags)+
+      '<div class="work-actions"><a class="button button-glass" href="'+escape(p.url)+'" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看'+escape(p.title)+'源码">查看源码 <span aria-hidden="true">↗</span></a>'+
+      (p.homepage?'<a class="text-link" href="'+escape(p.homepage)+'" target="_blank" rel="noopener noreferrer">在线体验 ↗</a>':'')+'</div>'+
+      ((d.features?.length||d.note)?'<details class="implementation-note"><summary>实现重点与项目说明</summary>'+(d.features?.length?'<ul>'+d.features.map(point=>'<li>'+escape(point)+'</li>').join('')+'</ul>':'')+(d.note?'<p>'+escape(d.note)+'</p>':'')+'</details>':'')+
+      '<a class="back-to-deck" href="#projects">↑ 返回项目卡组</a></div></article>';
   }
   function render() {
-    const focused = document.activeElement?.dataset?.project;
-    projects = normalize(rawRepos);
-    const query = $('#projectSearch').value;
-    const sort = $('#projectSort').value;
-    const selected = projects.filter(p=>(filter==='all'||p.category===filter)&&matches(p,query));
+    const focusedJump=document.activeElement?.dataset?.jump;
+    projects=normalize(rawRepos);
+    const query=$('#projectSearch').value, sort=$('#projectSort').value;
+    selected=projects.filter(p=>(filter==='all'||p.category===filter)&&matches(p,query));
     selected.sort((a,b)=>{
       if(sort==='name') return a.title.localeCompare(b.title,'zh-CN');
       if(sort==='stars') return b.stars-a.stars||b.updated-a.updated;
@@ -99,151 +131,172 @@
       }
       return b.updated-a.updated || a.name.localeCompare(b.name);
     });
-    const useShowcase = filter==='all' && !query.trim() && sort==='featured';
-    const featured = useShowcase ? selected.filter(p=>p.rank>=0 && p.details.image) : [];
-    const featuredNames = new Set(featured.map(p=>p.name));
-    const others = selected.filter(p=>!featuredNames.has(p.name));
-    $('#featuredProjects').innerHTML = featured.map(featureHtml).join('');
-    $('#featuredProjects').hidden = !featured.length;
-    $('#archiveHeading').hidden = !featured.length || !others.length;
-    $('#projectGrid').innerHTML = others.map(itemHtml).join('');
-    $('#emptyState').hidden = selected.length>0;
-    $('#resultsStatus').textContent = useShowcase ? projects.length+' 个公开项目 · '+featured.length+' 个代表项目' : '找到 '+selected.length+' 个项目';
+    if(!selected.some(p=>p.name===activeName)) activeName=selected[0]?.name || '';
+    $('#projectShowcase').hidden=!selected.length;
+    $('#emptyState').hidden=selected.length>0;
+    $('#detailsHeading').hidden=!selected.length;
+    $('#projectIndex').innerHTML=selected.map((p,index)=>'<a href="#'+projectId(p)+'" data-jump="'+escape(p.name)+'"><span>'+number(index+1)+'</span>'+escape(p.title)+'</a>').join('');
+    $('#projectDetails').innerHTML=selected.map(detailHtml).join('');
+    $('#resultsStatus').textContent=filter==='all'&&!query.trim()?projects.length+' 个公开项目 · 点击卡片查看详情':'找到 '+selected.length+' 个项目';
     document.querySelectorAll('[data-count]').forEach(node=>{node.textContent=node.dataset.count==='all'?projects.length:projects.filter(p=>p.category===node.dataset.count).length;});
-    if(focused && !dialog.open) document.querySelector('[data-project="'+CSS.escape(focused)+'"]')?.focus({preventScroll:true});
+    renderDeck();
+    if(focusedJump) document.querySelector('#projectIndex [data-jump="'+CSS.escape(focusedJump)+'"]')?.focus({preventScroll:true});
   }
-  function showDataStatus(message, isError=false) {
-    const node=$('#dataStatus'); node.textContent=message; node.dataset.state=isError?'error':'ready';
+  function resetFilters() {
+    filter='all';$('#projectSearch').value='';$('#projectSort').value='featured';
+    document.querySelectorAll('[data-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter==='all')));
   }
-  function renderDate() { showDataStatus(fetchedAt?'项目资料更新于 '+date(fetchedAt):'项目资料来自公开仓库'); }
-  async function refresh({manual=false}={}) {
-    if(updating) return;
-    updating=true; const button=$('#refreshProjects');
-    button.disabled=true;button.setAttribute('aria-busy','true');button.textContent='正在更新…';
-    try {
-      const repos=[];let page=1, more=true;
-      while(more && page<=20) {
-        const response=await fetch('https://api.github.com/users/'+encodeURIComponent(account)+'/repos?sort=updated&per_page=100&page='+page,{headers:{Accept:'application/vnd.github+json'},signal:AbortSignal.timeout(15000)});
-        if(!response.ok) throw new Error(response.status===403||response.status===429?'GitHub 请求暂时达到上限':'暂时无法连接 GitHub');
-        const data=await response.json();
-        if(!Array.isArray(data)) throw new Error('项目信息暂时不可用');
-        repos.push(...data);more=!!response.headers.get('link')?.includes('rel="next"');page++;
-      }
-      if(more) throw new Error('项目较多，稍后再试');
-      rawRepos=repos;fetchedAt=Date.now();
-      try {localStorage.setItem(cacheKey,JSON.stringify({account,fetchedAt,repos:rawRepos}));} catch {}
-      render();renderDate();
-    } catch(error) {
-      if(manual) showDataStatus(error.name==='TimeoutError'?'连接超时，仍可浏览已保存项目。请稍后重试。':error.message==='GitHub 请求暂时达到上限'?'GitHub 请求暂时达到上限，已保存项目仍可浏览。请稍后重试。':'暂时无法更新，仍可浏览已保存项目。请稍后重试。',true);
-    } finally {
-      updating=false;button.disabled=false;button.removeAttribute('aria-busy');button.textContent='更新项目信息 ↻';
-    }
+  function resolveHash({scroll=true,instant=false}={}) {
+    const id=location.hash.slice(1);
+    if(!id.startsWith('project-')) return;
+    const p=projects.find(p=>projectId(p)===id);
+    if(!p) return;
+    if(!selected.some(item=>item.name===p.name)) {resetFilters();render();}
+    activeName=p.name;renderDeck();
+    const target=document.getElementById(id);
+    if(scroll) target?.scrollIntoView({block:'start',behavior:instant?'instant':'auto'});
+    document.getElementById(id+'-title')?.focus({preventScroll:true});
   }
-  function openProject(name, opener) {
-    const p=projects.find(project=>project.name===name);if(!p) return;
-    const d=p.details;dialogOpener=opener;selectedProject=name;
-    $('#projectDetail').innerHTML='<div class="detail-content"><p class="detail-type">'+escape(d.kind||categories[p.category])+(p.archived?' · 已归档':'')+'</p><h2 class="detail-title" id="detailTitle">'+escape(p.title)+'</h2><p class="detail-repo">'+escape(account+'/'+p.name)+'</p><p class="detail-description" id="detailDescription">'+escape(p.description)+'</p>'+
-      (d.image?'<figure class="detail-figure"><img src="'+escape(d.image)+'" alt="'+escape(d.imageAlt || p.title+'项目界面')+'" width="1440" height="900"><figcaption>独立演示环境的真实界面</figcaption></figure>':'')+
-      (d.features?.length?'<h3>实现重点</h3><ul class="detail-features">'+d.features.map(point=>'<li>'+escape(point)+'</li>').join('')+'</ul>':'')+
-      '<h3>技术与工具</h3>'+tagsHtml(p.tags.length?p.tags:[p.language||'详见仓库'])+
-      (d.note?'<p class="detail-note">'+escape(d.note)+'</p>':'')+
-      '<p class="detail-meta">'+(p.updated?'仓库更新于 '+date(p.updated):'公开仓库')+(p.stars?' · '+p.stars+' Stars':'')+'</p></div><div class="detail-footer"><a class="outline-button" href="'+escape(p.url)+'" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>'+
-      (p.homepage?'<a class="outline-button" href="'+escape(p.homepage)+'" target="_blank" rel="noopener noreferrer">在线体验 ↗</a>':'')+'</div>';
-    if(!dialog.open) dialog.showModal();
-    dialog.scrollTop=0;document.body.classList.add('modal-open');syncFilm();
+  function stepProject(delta) {
+    if(selected.length<2) return;
+    const index=Math.max(0,selected.findIndex(p=>p.name===activeName));
+    activeName=selected[(index+delta+selected.length)%selected.length].name;renderDeck();
   }
   document.addEventListener('click',event=>{
-    const projectButton=event.target.closest('[data-project]');
-    if(projectButton) openProject(projectButton.dataset.project,projectButton);
-    const filterButton=event.target.closest('[data-filter]');
-    if(filterButton) {
-      filter=filterButton.dataset.filter;
-      document.querySelectorAll('[data-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button===filterButton)));
+    const anchor=event.target.closest('[data-jump]');
+    if(anchor && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button===0) {
+      activeName=anchor.dataset.jump;renderDeck();
+      if(location.hash===anchor.getAttribute('href')) {event.preventDefault();resolveHash();}
+    }
+    const button=event.target.closest('[data-filter]');
+    if(button) {
+      filter=button.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(node=>node.setAttribute('aria-pressed',String(node===button)));
       render();
     }
   });
-  $('#closeProject').addEventListener('click',()=>dialog.close());
-  dialog.addEventListener('click',event=>{
-    if(event.target!==dialog) return;
-    const rect=dialog.getBoundingClientRect();
-    if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom) dialog.close();
-  });
-  dialog.addEventListener('close',()=>{
-    document.body.classList.remove('modal-open');
-    const target=dialogOpener?.isConnected?dialogOpener:document.querySelector('[data-project="'+CSS.escape(selectedProject)+'"]');
-    target?.focus({preventScroll:true});syncFilm();
-  });
-  $('#projectSearch').addEventListener('input',render);
-  $('#projectSort').addEventListener('change',render);
-  $('#resetFilters').addEventListener('click',()=>{
-    filter='all';$('#projectSearch').value='';$('#projectSort').value='featured';
-    document.querySelectorAll('[data-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter==='all')));
-    render();$('#projectSearch').focus({preventScroll:true});
-  });
-  $('#refreshProjects').addEventListener('click',()=>refresh({manual:true}));
-
-  const film=$('#introFilm'), motionQuery=matchMedia('(prefers-reduced-motion: reduce)');
-  let playIntent=!motionQuery.matches, userToggled=false, filmInView=true;
-  film.muted=true;film.controls=false;$('.film-controls').hidden=false;
-  if(motionQuery.matches) {film.autoplay=false;film.pause();}
-  function updateFilmButtons() {
-    $('#toggleFilm').textContent=film.paused?'播放':'暂停';
-    $('#toggleFilm').setAttribute('aria-label',film.paused?'播放项目视频':'暂停视频');
-    $('#toggleFilm').setAttribute('aria-pressed',String(!film.paused));
-    $('#toggleSound').textContent=film.muted?'声音关':'声音开';
-    $('#toggleSound').setAttribute('aria-label',film.muted?'开启视频声音':'关闭视频声音');
-    $('#toggleSound').setAttribute('aria-pressed',String(!film.muted));
-  }
-  function syncFilm() {
-    if(playIntent && filmInView && !document.hidden && !dialog.open) {
-      film.play().catch(()=>{updateFilmButtons();});
-    } else film.pause();
-  }
-  $('#toggleFilm').addEventListener('click',()=>{
-    userToggled=true;
-    if(film.error) {film.load();playIntent=true;}
-    else playIntent=film.paused;
-    syncFilm();
-  });
-  $('#toggleSound').addEventListener('click',()=>{film.muted=!film.muted;updateFilmButtons();});
-  $('#expandFilm').addEventListener('click',async()=>{
-    try {
-      if(film.requestFullscreen) {film.controls=true;await film.requestFullscreen();}
-      else if(film.webkitEnterFullscreen) film.webkitEnterFullscreen();
-      else window.open(film.currentSrc,'_blank','noopener');
-    } catch {
-      film.controls=false;
-      $('#filmStatus').textContent='浏览器未允许全屏，仍可在此播放。';$('#filmStatus').hidden=false;
+  $('#previousProject').addEventListener('click',()=>stepProject(-1));
+  $('#nextProject').addEventListener('click',()=>stepProject(1));
+  $('#projectDeck').addEventListener('keydown',event=>{
+    if(event.key==='ArrowLeft'||event.key==='ArrowRight') {
+      event.preventDefault();stepProject(event.key==='ArrowLeft'?-1:1);
+      $('#projectDeck [data-depth="0"]')?.focus({preventScroll:true});
     }
   });
-  document.addEventListener('fullscreenchange',()=>{film.controls=document.fullscreenElement===film;});
-  film.addEventListener('play',updateFilmButtons);
-  film.addEventListener('pause',updateFilmButtons);
-  film.addEventListener('volumechange',updateFilmButtons);
-  film.addEventListener('loadedmetadata',()=>{
-    const duration=Math.round(film.duration);
-    if(Number.isFinite(duration)) $('#filmDuration').textContent=String(Math.floor(duration/60)).padStart(2,'0')+':'+String(duration%60).padStart(2,'0');
+  window.addEventListener('hashchange',()=>resolveHash());
+  $('#projectSearch').addEventListener('input',render);
+  $('#projectSort').addEventListener('change',render);
+  $('#resetFilters').addEventListener('click',()=>{resetFilters();render();$('#projectSearch').focus({preventScroll:true});});
+
+  function showDataStatus(message,isError=false) {
+    const node=$('#dataStatus');node.textContent=message;node.dataset.state=isError?'error':'ready';
+  }
+  function renderDate() {showDataStatus(fetchedAt?'项目资料更新于 '+date(fetchedAt):'项目资料来自公开仓库');}
+  async function refresh({manual=false}={}) {
+    if(updating) return;
+    updating=true;const button=$('#refreshProjects');
+    button.disabled=true;button.setAttribute('aria-busy','true');button.textContent='正在更新…';
+    try {
+      const repos=[];let page=1,more=true;
+      while(more&&page<=20) {
+        const response=await fetch('https://api.github.com/users/'+encodeURIComponent(account)+'/repos?sort=updated&per_page=100&page='+page,{headers:{Accept:'application/vnd.github+json'},signal:AbortSignal.timeout(15000)});
+        if(!response.ok) throw new Error(response.status===403||response.status===429?'rate':'network');
+        const data=await response.json();if(!Array.isArray(data)) throw new Error('data');
+        repos.push(...data);more=!!response.headers.get('link')?.includes('rel="next"');page++;
+      }
+      if(more) throw new Error('pages');
+      rawRepos=repos;fetchedAt=Date.now();
+      try{localStorage.setItem(cacheKey,JSON.stringify({account,fetchedAt,repos:rawRepos}));}catch{}
+      render();renderDate();
+    }catch(error){
+      if(manual) showDataStatus(error.name==='TimeoutError'?'连接超时，仍可浏览已保存项目。请稍后重试。':error.message==='rate'?'GitHub 请求暂时达到上限，已保存项目仍可浏览。请稍后重试。':'暂时无法更新，仍可浏览已保存项目。请稍后重试。',true);
+    }finally{
+      updating=false;button.disabled=false;button.removeAttribute('aria-busy');button.textContent='更新项目信息 ↻';
+    }
+  }
+  $('#refreshProjects').addEventListener('click',()=>refresh({manual:true}));
+
+  const background=$('#heroVideo'), film=$('#introFilm'), dialog=$('#filmDialog');
+  const motionQuery=matchMedia('(prefers-reduced-motion: reduce)'), connection=navigator.connection;
+  const autoAllowed=()=>!motionQuery.matches&&!connection?.saveData;
+  let playIntent=autoAllowed(), userToggled=false, heroInView=false, filmOpener=null;
+  function loadVideo(video) {
+    if(video.dataset.loaded) return;
+    video.querySelectorAll('source[data-src]').forEach(source=>{source.src=source.dataset.src;});
+    video.dataset.loaded='true';video.load();
+  }
+  function updateBackgroundButton() {
+    const playing=!background.paused;
+    $('#toggleBackground').textContent=playing?'暂停背景':'播放背景';
+    $('#toggleBackground').setAttribute('aria-label',playing?'暂停背景动画':'播放背景动画');
+    $('#toggleBackground').setAttribute('aria-pressed',String(playing));
+  }
+  function syncBackground() {
+    const shouldPlay=playIntent&&heroInView&&!document.hidden&&!dialog.open;
+    background.autoplay=shouldPlay;
+    if(shouldPlay) {
+      loadVideo(background);background.muted=true;
+      background.play().catch(()=>updateBackgroundButton());
+    }else background.pause();
+  }
+  $('#toggleBackground').hidden=false;
+  $('#toggleBackground').addEventListener('click',()=>{
+    userToggled=true;playIntent=background.paused;
+    if(background.error){background.load();playIntent=true;}
+    syncBackground();
   });
-  film.addEventListener('canplay',()=>{
-    $('#filmStatus').hidden=true;$('#toggleSound').disabled=false;syncFilm();
+  background.addEventListener('playing',()=>{background.classList.add('is-playing');$('#backgroundStatus').hidden=true;updateBackgroundButton();});
+  background.addEventListener('play',updateBackgroundButton);
+  background.addEventListener('pause',updateBackgroundButton);
+  background.addEventListener('error',()=>{
+    if(!background.dataset.fallback && background.currentSrc.includes('.webm')) {
+      background.dataset.fallback='mp4';
+      background.src=background.querySelector('source[type="video/mp4"]').dataset.src;
+      background.load();syncBackground();return;
+    }
+    background.classList.remove('is-playing');
+    $('#backgroundStatus').textContent='背景暂时无法播放，已显示项目封面。';$('#backgroundStatus').hidden=false;updateBackgroundButton();
+  });
+  function preferenceChanged() {
+    if(!autoAllowed()) playIntent=false;
+    else if(!userToggled) playIntent=true;
+    syncBackground();
+  }
+  motionQuery.addEventListener('change',preferenceChanged);
+  connection?.addEventListener?.('change',preferenceChanged);
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden) film.pause();
+    syncBackground();
+  });
+  if('IntersectionObserver' in window) new IntersectionObserver(entries=>{
+    heroInView=entries[0].isIntersecting;syncBackground();
+  },{threshold:.15}).observe($('.hero'));
+  else{heroInView=true;}
+  $('#watchFilm').addEventListener('click',event=>{
+    filmOpener=event.currentTarget;dialog.showModal();document.body.classList.add('modal-open');syncBackground();
+    loadVideo(film);$('#filmStatus').hidden=true;
+    film.play().catch(()=>{$('#filmStatus').textContent='点击播放器中的播放按钮，观看完整短片。';$('#filmStatus').hidden=false;});
+  });
+  $('#closeFilm').addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('close',()=>{
+    film.pause();document.body.classList.remove('modal-open');filmOpener?.focus({preventScroll:true});syncBackground();
+  });
+  dialog.addEventListener('click',event=>{
+    if(event.target!==dialog) return;
+    const r=dialog.getBoundingClientRect();
+    if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) dialog.close();
   });
   film.addEventListener('error',()=>{
-    const status=$('#filmStatus');status.hidden=false;status.dataset.state='error';status.textContent='视频暂时无法加载，点“播放”重试；下方作品仍可浏览。';
-    $('#toggleSound').disabled=true;updateFilmButtons();
+    $('#filmStatus').textContent='短片暂时无法播放，可以点击“单独打开短片”重试。';$('#filmStatus').hidden=false;
   });
-  film.addEventListener('timeupdate',()=>{const progress=Number.isFinite(film.duration)&&film.duration>0?film.currentTime/film.duration:0;$('#filmProgress').style.transform='scaleX('+progress+')';});
-  motionQuery.addEventListener('change',event=>{if(event.matches) playIntent=false;else if(!userToggled) playIntent=true;syncFilm();});
-  document.addEventListener('visibilitychange',syncFilm);
-  if('IntersectionObserver' in window) new IntersectionObserver(entries=>{filmInView=entries[0].isIntersecting;syncFilm();},{threshold:.15}).observe(film);
-  updateFilmButtons();
-
   try {
     const saved=JSON.parse(localStorage.getItem(cacheKey)||'null');
-    if(saved?.account===account && Array.isArray(saved.repos) && Number.isFinite(saved.fetchedAt) && saved.fetchedAt>=fetchedAt && saved.fetchedAt<=Date.now()+60000) {rawRepos=saved.repos;fetchedAt=saved.fetchedAt;}
-  } catch {}
+    if(saved?.account===account&&Array.isArray(saved.repos)&&Number.isFinite(saved.fetchedAt)&&saved.fetchedAt>=fetchedAt&&saved.fetchedAt<=Date.now()+60000) {rawRepos=saved.repos;fetchedAt=saved.fetchedAt;}
+  }catch{}
   $('#currentYear').textContent=new Date().getFullYear();
   $('#techCloud').innerHTML=(config.toolkit||[]).map(tool=>'<li>'+escape(tool)+'</li>').join('');
   $('#projectToolbar').hidden=false;$('#refreshProjects').hidden=false;
-  render();renderDate();syncFilm();
-  if(!projects.length || Date.now()-fetchedAt>cacheTTL) refresh();
+  render();renderDate();updateBackgroundButton();syncBackground();
+  if(location.hash.startsWith('#project-')) resolveHash({instant:true});
+  if(!projects.length||Date.now()-fetchedAt>cacheTTL) refresh();
 })();

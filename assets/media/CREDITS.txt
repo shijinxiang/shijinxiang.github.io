@@ -6,3 +6,6 @@ https://vincentwei1021.github.io/video-shotcraft/
 采用 brand-ink-open、basic-3d-scene、paper-title-card 的运动语法，按个人作品内容适配。
 音乐与音效：video-shotcraft 自带许可音频，具体授权记录保留在可编辑影片工程 public/audio/ATTRIBUTION.md。
 字体：Space Grotesk、Noto Sans SC，SIL Open Font License；许可文件位于 ../fonts/。
+
+首页背景：8 秒无声循环，由同一组真实项目截图在 Remotion 中重新编排，提供 WebM / H.264 MP4 与 WebP 海报。
+网页整体风格：用户提供的 Cinematic Video Hero（StyleKit）。项目卡组仅参考 Card Stack（StyleKit）的层叠布局，沿用网页统一配色。
