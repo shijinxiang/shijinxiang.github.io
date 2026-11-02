@@ -16,6 +16,6 @@ Project selector geometry: Card Stack (StyleKit, v1.0.0), from the user-provided
 
 Real screenshot previews: RAG, VoiceOps and the local question library. Other projects use typographic covers, labelled as project covers. Project claims and demo limitations remain in `config.js`.
 
-The 8-second background is an original Remotion composition of the same real project screenshots. Its editable source is maintained in the sibling private/local `portfolio-film` project (`src/HeroLoop.tsx`). The existing 30-second project film remains available through an explicit play button.
+The 9-second background uses the carousel-3d recipe to rotate all nine projects, combining three real screenshots with six typographic covers. The 48-second full film shares the same near-black/warm-gold palette and fonts across its opening, enlarged project stages, catalog orbit and closing. Editable source is maintained in the sibling local `portfolio-film` project (`src/HeroLoop.tsx`, `src/Carousel.tsx`, `src/catalog.ts`). The full film loads through an explicit play button.
 
 Previous `.hallmark` notes and `styles.css` document the earlier design and are not the active stylesheet.

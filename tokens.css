@@ -1,6 +1,6 @@
 /* Cinematic Video Hero · dark / warm gold · 2026-11-02 */
 @font-face{font-family:'Space Grotesk';src:url('./assets/fonts/space-grotesk.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
-@font-face{font-family:'Noto Sans SC';src:url('./assets/fonts/noto-sans-sc.woff2?v=4') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('./assets/fonts/noto-sans-sc.woff2?v=5') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 :root{
   color-scheme:dark;
   --color-base:#05060a; --color-surface:#141821; --color-surface-raised:#1b202a;
