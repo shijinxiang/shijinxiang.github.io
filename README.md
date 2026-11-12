@@ -1,23 +1,27 @@
-# 施金翔 · 个人作品集
+# 施金翔 · 精选作品集
 
-个人网页：<https://shijinxiang.github.io/>
+公开网站：<https://shijinxiang.github.io/>
 
-展示 AI 应用开发、RAG 智能体、工单自动化、桌面工具与游戏等公开项目。原生 HTML、CSS、JavaScript，由 GitHub Pages 直接发布，无构建依赖。
+2026-11-13 版参考 nowsome.mv 的黑白编辑式排版、Bebas Neue 大标题、描边字、细线分区与案例编排，重新实现为独立的个人作品集。页面文案、项目资料与图片均为施金翔自己的内容。
 
-页面以 Cinematic Video Hero 为整体风格：近黑背景、暖金强调和真实项目画面的 9 秒无声循环。Card Stack 仅用于项目选择卡组，三层卡片可通过按钮或方向键切换，点击正面卡片或目录会跳到下方对应的图文详情。详情使用稳定锚点，可直接分享链接，例如 `#project-voiceops`。
+## 当前展示
 
-- `index.html`：个人介绍与页面结构。
-- `config.js`：精选项目、分类、中文简介与项目详情。
-- `github-data.js`：公开仓库数据快照。
-- `app.js`：卡组、详情锚点、搜索筛选、GitHub 数据刷新与视频控制。
-- `tokens.css` / `studio.css`：本地字体、设计变量、统一深色风格与响应式布局。
-- `assets/media/`：9 秒背景循环（WebM / MP4）、WebP 海报、48 秒完整作品短片、字幕与来源说明。
-- `assets/screens/`：真实项目界面，使用独立演示数据。
-- `assets/fonts/`：本地 WOFF2 字体及开源许可。
-- `DESIGN.md`：当前风格来源与实现约定。
+有意维护五个精选项目：深渊岛、企业知识库 RAG、开放题记录库、VoiceOps、翻译桌宠。首页支持按类别筛选、前后切换和键盘切换；每项有独立详情地址，例如 `project.html?id=shenyuan-island`。深渊岛使用公开仓库的真实截图，并链接到 v0.2.0 Windows 发布页。
 
-背景视频先显示 WebP 海报，进入视口才加载，默认静音循环；移出视口、页面不可见或打开完整短片时暂停。减少动态偏好或省流量模式下不自动加载，可手动播放。WebM 播放失败时退回 MP4。完整 48 秒短片在用户点击后加载，使用原生播放器。
+基础刷题静态页和较早的小型游戏 Demo 不进入当前精选。全站使用明确的项目清单，不自动把所有 GitHub 仓库加入页面。
 
-9 个项目在页面下方有独立详情。没有实际截图的项目使用文字封面，不模拟产品界面。公开仓库数据保留本地快照和缓存，GitHub 请求失败仍能浏览已保存项目。
+## 源码
 
-向 `main` 分支推送后，GitHub Pages 自动更新。个人简历原文件不在此仓库。
+- `index.html`：首页与个人介绍。
+- `project.html`：项目档案页模板。
+- `selected-projects.js`：五个项目的文案、技术、图片、链接和展示顺序。
+- `portfolio.css` / `portfolio.js`：响应式样式、分类、项目切换、手机菜单与截图放大。
+- `assets/selected/`：深渊岛实机图；`assets/screens/` 保留三项应用的真实演示截图。
+- `assets/fonts/`：本地字体和 OFL 许可。
+- `DESIGN.md` / `ASSET-SOURCES.md`：当前设计与素材来源。
+
+原生 HTML/CSS/JavaScript，无构建依赖，GitHub Pages 从 main 根目录发布。可用静态 HTTP 服务预览。当前页面不加载视频、旧版脚本、旧版样式或完整仓库快照；历史资源与电影工程保留用于溯源。原始简历 PDF 不在站点中。
+
+## 维护
+
+在 `selected-projects.js` 手动更新当前项目，避免未经整理的仓库自动进入精选。图片应来自真实项目，无法提供实机图时明确使用字标封面。VoiceOps 的模拟实现、RAG 的模型配置要求及各演示状态保留在项目说明中。

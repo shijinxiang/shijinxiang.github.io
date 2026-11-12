@@ -1,21 +1,26 @@
-# Current design · 2026-11-02
+# Editorial portfolio · 2026-11-13
 
-Primary visual style: Cinematic Video Hero (StyleKit, v1.0.0), from the user-provided `cinematic-video-hero-style-pack`.
+Reference: https://nowsome.mv/ and its /work page, inspected in a real browser. This is an original implementation inspired by its layout vocabulary, not a copy of its code, commercial claims, branding or project assets.
 
-- Near black `#05060A`, raised surface `#141821`, warm gold `#E4C063`, muted steel `#9AA6B8`.
-- Full-width, short silent background loop with a WebP poster and readable text scrims.
-- Local Space Grotesk and Noto Sans SC, rounded media frames, pill controls and restrained shadows.
-- Motion and Save-Data preferences prevent automatic background loading; explicit playback remains available.
+## Direction
+Off-white #fafaf8 / ink #151515 / fine grey rules. Large condensed Bebas Neue headlines, outlined middle words, light offset shadows, small monospaced labels and numbered project files. Chinese uses Noto Sans SC; supporting Latin uses Space Grotesk. Static project photography supplies color. No video or animated media.
 
-Project selector geometry: Card Stack (StyleKit, v1.0.0), from the user-provided `card-stack-style-pack`. This reference applies only to the project deck, not the global palette.
+The existing GitHub Pages URL remains the publication target under the user's standing authorization. Active pages use buildless HTML/CSS/JS, matching the established deployment. Sites presentation guidance and local design-taste-frontend guidance inform responsive layout and interaction quality; the explicit reference determines the large headline style. Default framework and animation recipes are not introduced into an existing static portfolio.
 
-- At most three visible cards, progressive depth, scale and opacity.
-- The front card lifts; the two rear cards fan in opposite directions on hover/focus.
-- Previous/next controls and left/right keys switch cards. No timed rotation or complex mobile gestures.
-- Selecting a card follows a stable anchor to its detail row below. Detail rows retain the reference's left-image/right-copy structure on desktop and stack on mobile.
+## Structure
+1. Identity and latest-game preview, with a direct route to curated work.
+2. Three practice areas with editorial rows.
+3. Five selected project files: manual category filters, accessible tabs, previous/next buttons, and deep links.
+4. About, technical practice and a GitHub contact route.
+5. Individual project pages with context, approach, results, features, flow and authentic imagery. Native image dialogs support keyboard dismissal and focus restoration.
 
-Real screenshot previews: RAG, VoiceOps and the local question library. Other projects use typographic covers, labelled as project covers. Project claims and demo limitations remain in `config.js`.
+## Curation
+Included: shenyuan-island, rag, open-prompt, VoiceOps, deskpet-WDY.
+Excluded from the curated view: website, wwweb and myweb (basic/static learning pages); dongVSjin and heroVSgrandpa (early small game prototypes). No star count or artificial outcome metric is used as a quality proxy.
 
-The 9-second background uses the carousel-3d recipe to rotate all nine projects, combining three real screenshots with six typographic covers. The 48-second full film shares the same near-black/warm-gold palette and fonts across its opening, enlarged project stages, catalog orbit and closing. Editable source is maintained in the sibling local `portfolio-film` project (`src/HeroLoop.tsx`, `src/Carousel.tsx`, `src/catalog.ts`). The full film loads through an explicit play button.
+The game leads the new edition. Its repository documents v0.2.0, Godot 4.7.2 / Forward+, Windows release and gameplay systems. This portfolio does not assert sole authorship, fresh production validation or third-party-asset ownership. The other four descriptions preserve their existing factual and demo boundaries.
 
-Previous `.hallmark` notes and `styles.css` document the earlier design and are not the active stylesheet.
+## Accessibility and implementation
+Readable HTML copy, local fonts and images, visible focus states, standard links, explicit filter state, roving project-tab focus, image descriptions, native dialogs, reduced-motion support, an explicit invalid-project state, and responsive single-column layouts. Empty generic links and a fake contact form are avoided; GitHub is the real public contact destination.
+
+Historic cinema files are not loaded by current pages. Previous source is preserved on local branch archive/cinematic-2026-11-13 and in Git history.
