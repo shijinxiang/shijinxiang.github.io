@@ -1,27 +1,22 @@
-# 施金翔 · 精选作品集
+# 施金翔 · 个人作品集
 
-公开网站：<https://shijinxiang.github.io/>
+网站地址为 https://shijinxiang.github.io/ ，使用原生 HTML、CSS、JavaScript，由 GitHub Pages 发布。
 
-2026-11-13 版参考 nowsome.mv 的黑白编辑式排版、Bebas Neue 大标题、描边字、细线分区与案例编排，重新实现为独立的个人作品集。页面文案、项目资料与图片均为施金翔自己的内容。
+本次界面按用户提供的 Nowsome 参考包接入组件 DOM 和 CSS。固定导航、首屏状态面板、作品展台、右侧项目列表、开发方向和关于区均使用包内对应的组件结构。交互通过本站脚本适配。
 
-## 当前展示
+精选项目包括协序、深渊岛、企业知识库 RAG、VoiceOps、开放题记录库、翻译桌宠与 PULSE。资料按 2026-11-13 的公开 README 和发布页整理，项目列表在 selected-projects.js 中维护。
 
-有意维护五个精选项目：深渊岛、企业知识库 RAG、开放题记录库、VoiceOps、翻译桌宠。首页支持按类别筛选、前后切换和键盘切换；每项有独立详情地址，例如 `project.html?id=shenyuan-island`。深渊岛使用公开仓库的真实截图，并链接到 v0.2.0 Windows 发布页。
+主要文件
 
-基础刷题静态页和较早的小型游戏 Demo 不进入当前精选。全站使用明确的项目清单，不自动把所有 GitHub 仓库加入页面。
+- index.html 为首页，project.html 为项目详情模板。
+- reference-components.css 为参考包组件样式的选用部分。
+- site.css 为中文内容、图片、移动菜单和本站交互的适配。
+- project-components.css 衔接现有详情页布局与稳定地址。
+- portfolio.js 处理导航、项目筛选、键盘选择、详情和图片放大。
+- selected-projects.js 维护项目资料、版本、来源、链接与图片尺寸。
 
-## 源码
+深渊岛使用 GitHub 介绍页对应的七张实机宣传图。协序使用其 README 工作台截图，PULSE 使用公开网站当前界面，翻译桌宠使用仓库中的桌宠素材。三个既有应用的图片为已存的演示界面，版本与功能说明依据当前公开资料更新。
 
-- `index.html`：首页与个人介绍。
-- `project.html`：项目档案页模板。
-- `selected-projects.js`：五个项目的文案、技术、图片、链接和展示顺序。
-- `portfolio.css` / `portfolio.js`：响应式样式、分类、项目切换、手机菜单与截图放大。
-- `assets/selected/`：深渊岛实机图；`assets/screens/` 保留三项应用的真实演示截图。
-- `assets/fonts/`：本地字体和 OFL 许可。
-- `DESIGN.md` / `ASSET-SOURCES.md`：当前设计与素材来源。
+可使用静态 HTTP 服务预览。源码推送到 main 后由 GitHub Pages 更新。项目来源与字体许可见 ASSET-SOURCES.md 和 assets/fonts。
 
-原生 HTML/CSS/JavaScript，无构建依赖，GitHub Pages 从 main 根目录发布。可用静态 HTTP 服务预览。当前页面不加载视频、旧版脚本、旧版样式或完整仓库快照；历史资源与电影工程保留用于溯源。原始简历 PDF 不在站点中。
-
-## 维护
-
-在 `selected-projects.js` 手动更新当前项目，避免未经整理的仓库自动进入精选。图片应来自真实项目，无法提供实机图时明确使用字标封面。VoiceOps 的模拟实现、RAG 的模型配置要求及各演示状态保留在项目说明中。
+本版页面采用图片展示。基础练习仓库由 GitHub 主页承接，精选清单有意维护。

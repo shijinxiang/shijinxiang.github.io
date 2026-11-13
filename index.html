@@ -3,75 +3,183 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f9f9f7">
-  <meta name="color-scheme" content="light">
-  <meta name="description" content="施金翔的精选作品：深渊岛、企业知识库 RAG、开放题记录库、VoiceOps 与翻译桌宠。从 AI 应用、桌面工具到可交互的游戏世界。">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="施金翔的个人作品集，展示协序多模型协作工作台、深渊岛、企业知识库 RAG、VoiceOps、开放题记录库和交互作品。">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="施金翔 — AI 应用、工具与游戏">
-  <meta property="og:description" content="把知识、工具和想象，写成可用的作品。探索五个精选项目与新游戏《深渊岛》。">
+  <meta property="og:title" content="施金翔 · 软件、工具与交互作品">
+  <meta property="og:description" content="从多模型协作和知识检索，到桌面工具、游戏与音乐交互。">
   <meta property="og:url" content="https://shijinxiang.github.io/">
-  <meta property="og:image" content="https://shijinxiang.github.io/assets/selected/shenyuan-island.webp">
-  <meta property="og:locale" content="zh_CN">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://shijinxiang.github.io/assets/projects/game-fishing.webp">
   <link rel="canonical" href="https://shijinxiang.github.io/">
-  <link rel="icon" href="./assets/favicon.svg?v=6" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon.svg?v=7" type="image/svg+xml">
   <link rel="preload" href="./assets/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./assets/fonts/noto-sans-sc.woff2?v=6" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./portfolio.css?v=6">
-  <script src="./selected-projects.js?v=6" defer></script>
-  <script src="./portfolio.js?v=6" defer></script>
-  <title>施金翔 — AI 应用、工具与游戏</title>
+  <link rel="preload" href="./assets/fonts/noto-sans-sc.woff2?v=7" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./reference-components.css?v=7">
+  <link rel="stylesheet" href="./site.css?v=7">
+  <script src="./selected-projects.js?v=7" defer></script>
+  <script src="./portfolio.js?v=7" defer></script>
+  <title>施金翔 · 软件、工具与交互作品</title>
 </head>
-<body id="home">
-  <a class="skip-link" href="#work">跳转到精选作品</a>
-  <header class="site-header shell">
-    <a class="wordmark" href="./" aria-label="施金翔的个人主页"><span class="brand-symbol" aria-hidden="true">S</span><span>SHIJINXIANG</span></a>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" hidden>菜单 <span aria-hidden="true">＋</span></button>
-    <nav id="mainNav" class="main-nav" aria-label="主导航"><a href="#focus">创作方向</a><a href="#work">精选作品</a><a href="#about">关于我</a><a href="#contact">联系</a><a class="nav-action" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a></nav>
+<body class="portfolio-page" id="home">
+  <a class="skip-link" href="#work">跳转到作品</a>
+  <header class="nav nav--clustered" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="./" aria-label="施金翔的个人主页">
+        <span class="brand-mark"><img src="./assets/favicon.svg?v=7" alt="" width="34" height="34"></span>
+        <span class="brand-word">SHIJINXIANG</span>
+      </a>
+      <div class="nav-spacer"></div>
+      <button class="nav-menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" hidden>菜单 <span aria-hidden="true">＋</span></button>
+      <nav class="nav-links" id="mainNav" aria-label="主导航">
+        <a class="nav-link" href="#work">精选作品</a>
+        <a class="nav-link" href="#practice">开发方向</a>
+        <a class="nav-link" href="#about">关于我</a>
+        <a class="nav-link nav-cta" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <section class="hero shell" aria-labelledby="heroTitle">
-      <div class="identity-line"><span><i class="status-dot" aria-hidden="true"></i> SELECTED PORTFOLIO / 2026</span><span>施金翔 — AI 应用与游戏开发</span><span>GUANGXI MINZU UNIVERSITY</span></div>
-      <div class="hero-decoration" aria-hidden="true"><span></span></div>
-      <div class="hero-grid">
-        <div class="hero-heading"><p class="eyebrow">/ 施金翔 — AI 应用与游戏开发</p><h1 id="heroTitle" aria-label="AI 应用、桌面工具与游戏开发"><span aria-hidden="true">AI APPS.</span><span class="outline-type" aria-hidden="true">TOOLS.</span><span aria-hidden="true">GAMES.</span></h1></div>
-        <aside class="identity-card" aria-label="开发者与最新项目">
-          <div class="card-topline"><span class="three-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>SHIJINXIANG.GITHUB.IO</span></div>
-          <dl class="identity-facts"><div><dt>FOCUS</dt><dd>AI 应用 · 工具 · 游戏</dd></div><div><dt>BUILD WITH</dt><dd>Python / TypeScript / Godot</dd></div><div><dt>CURRENT</dt><dd>探索可用，也有趣的体验</dd></div></dl>
-          <a class="latest-preview" href="./project.html?id=shenyuan-island" aria-label="了解新游戏深渊岛"><img src="./assets/selected/shenyuan-island.webp" alt="深渊岛游戏中的海岸、码头与木船" width="1280" height="720" fetchpriority="high"><span class="latest-stamp">LATEST / 01</span><span class="preview-arrow" aria-hidden="true">↗</span></a>
-          <div class="latest-caption"><div><span class="micro">NEW GAME / v0.2.0</span><strong>深渊岛</strong></div><a href="./project.html?id=shenyuan-island" aria-label="查看深渊岛项目">探索一座岛 <span aria-hidden="true">↗</span></a></div>
-        </aside>
+  <main class="site-main">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-inner">
+        <div class="hero-kicker">
+          <span class="hero-kicker__live"><i aria-hidden="true"></i>个人作品集</span>
+          <span>施金翔 · AI 应用与交互开发</span>
+          <span>广西民族大学 / 人工智能</span>
+        </div>
+        <div class="hero-open">
+          <div class="hero-headline">
+            <p class="hero-tag">/ I DESIGN & BUILD</p>
+            <h1 class="display-title hero-title" id="heroTitle" aria-label="软件、工具与交互世界">
+              <span class="hero-line-mask"><span class="js-hero-line">SOFTWARE</span></span>
+              <span class="hero-line-mask"><span class="js-hero-line hero-line--outline">TOOLS</span></span>
+              <span class="hero-line-mask"><span class="js-hero-line">WORLDS</span></span>
+            </h1>
+            <div class="hero-baseline">
+              <span class="hero-baseline__rule" aria-hidden="true"></span>
+              <p>多模型协作、知识检索与交互创作</p>
+            </div>
+          </div>
+          <aside class="hero-panel" aria-label="个人与最新项目">
+            <div class="hero-panel__bar">
+              <span class="hero-panel__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>SHIJINXIANG.GITHUB.IO</span>
+            </div>
+            <div class="hero-panel__rows">
+              <div class="hero-panel__row"><span>身份</span><strong>人工智能专业本科在读</strong></div>
+              <div class="hero-panel__row"><span>方向</span><strong>AI 应用 / 桌面工具 / 交互</strong></div>
+              <div class="hero-panel__row"><span>技术</span><strong>Electron / FastAPI / Godot</strong></div>
+            </div>
+            <a class="hero-panel__metric" href="./project.html?id=xiexu-workbench">
+              <strong>0.1.0</strong><span>协序工作台<br>查看 Windows 开发版 ↗</span>
+            </a>
+          </aside>
+          <div class="hero-orbit" aria-hidden="true"><span></span><span></span></div>
+        </div>
+        <div class="hero-row">
+          <div class="hero-lead">
+            <span class="hero-lead__label">/ ABOUT MY WORK</span>
+            <p class="hero-copy">我在广西民族大学学习人工智能，围绕资料、模型和工作流做应用，也用 Godot 与 Web Audio 探索交互体验。</p>
+          </div>
+          <div class="hero-actions">
+            <a class="hero-link hero-link--dark" href="#work">浏览精选项目</a>
+            <a class="hero-link" href="#project-shenyuan-island">探索《深渊岛》</a>
+          </div>
+          <div class="hero-services" aria-label="项目快速入口">
+            <a href="#project-xiexu-workbench">多模型协作 <span aria-hidden="true">↗</span></a>
+            <a href="#project-rag">知识检索 <span aria-hidden="true">↗</span></a>
+            <a href="#project-open-prompt">本地工具 <span aria-hidden="true">↗</span></a>
+            <a href="#project-pulse-music">音乐交互 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </div>
-      <div class="hero-bottom"><div><p class="eyebrow">/ WHAT I BUILD</p><p class="hero-lead">把知识、工具和想象，写成可用的作品。</p><p class="hero-description">我是施金翔，人工智能专业本科在读。<br>关注 RAG 与智能体，也做桌面工具和游戏。</p></div><div class="hero-actions"><a class="button button-dark" href="#work">查看精选作品 <span aria-hidden="true">↗</span></a><a class="button button-line" href="#about">关于我 <span aria-hidden="true">↘</span></a><span class="hero-count"><b>05</b> SELECTED PROJECTS</span></div></div>
-      <div class="hero-tail"><span>CODE / CURIOSITY / CRAFT</span><a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
     </section>
-    <div class="discipline-band" aria-hidden="true"><div class="shell"><span>AI APPLICATIONS</span><i>+</i><span>DESKTOP TOOLS</span><i>+</i><span>INTERACTIVE WORLDS</span><i>+</i><span>OPEN SOURCE</span></div></div>
-    <section class="focus-section shell section-space" id="focus" aria-labelledby="focusTitle">
-      <div class="section-kicker"><span>01 / PRACTICE</span><span>从实际问题开始</span></div>
-      <div class="focus-layout"><div><p class="eyebrow">WHAT I BUILD</p><h2 id="focusTitle">从知识检索，<br>到交互世界。</h2><p class="section-copy">在不同形态的项目里，持续练习同一件事：<br>把想法落实成可以操作、验证和改进的体验。</p><a class="inline-link" href="#work">看看具体作品 <span aria-hidden="true">↗</span></a></div><div class="practice-list">
-        <article><span class="item-number">01</span><div><h3>AI 应用与智能体</h3><p>从资料接入、知识检索到工具编排，让回答有来源，让流程能衔接。</p><span class="micro">RAG / FASTAPI / LANGGRAPH</span></div><span class="row-arrow" aria-hidden="true">↗</span></article>
-        <article><span class="item-number">02</span><div><h3>桌面效率工具</h3><p>整理问题与资料，缩短截图、翻译和记录之间的距离。</p><span class="micro">ELECTRON / REACT / WPF</span></div><span class="row-arrow" aria-hidden="true">↗</span></article>
-        <article><span class="item-number">03</span><div><h3>游戏与交互体验</h3><p>在 Godot 中搭建场景、玩法与系统，探索一个世界如何让人愿意停留。</p><span class="micro">GODOT / GDSCRIPT / BLENDER</span></div><span class="row-arrow" aria-hidden="true">↗</span></article>
-      </div></div>
+
+    <section class="section section--tight" id="work" aria-labelledby="workTitle">
+      <span id="projects" class="anchor-alias"></span>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="workTitle">SELECTED WORK</h2>
+          <p class="section-copy">选择项目，查看当前版本、实现细节与真实画面。</p>
+        </div>
+        <div class="work-showroom">
+          <div class="work-toolbar">
+            <span class="work-filter-label" id="filterLabel">按方向浏览</span>
+            <div class="work-filters" role="group" aria-labelledby="filterLabel">
+              <button class="filter-button filter-button--active" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button class="filter-button" type="button" data-filter="ai" aria-pressed="false">AI 软件</button>
+              <button class="filter-button" type="button" data-filter="tools" aria-pressed="false">桌面工具</button>
+              <button class="filter-button" type="button" data-filter="creative" aria-pressed="false">交互作品</button>
+            </div>
+            <div class="work-count"><strong id="visibleCount">07</strong><span>个项目</span></div>
+          </div>
+          <p id="selectionStatus" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+          <article class="work-stage" id="casePanel" role="tabpanel" aria-labelledby="tab-xiexu-workbench">
+            <p class="case-loading">正在载入项目…</p>
+          </article>
+          <div class="work-reel" id="caseTabs" role="tablist" aria-label="项目列表" aria-orientation="vertical"></div>
+        </div>
+        <div class="work-bottom">
+          <a class="work-link" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">查看全部公开仓库</a>
+          <div class="case-controls"><span id="casePosition">01 / 07</span><button type="button" id="previousCase" aria-label="上一个项目">←</button><button type="button" id="nextCase" aria-label="下一个项目">→</button></div>
+        </div>
+        <noscript><p>精选作品包括协序工作台、深渊岛、企业知识库 RAG、VoiceOps、开放题记录库、翻译桌宠和 PULSE。<a href="https://github.com/shijinxiang">前往 GitHub 浏览源码 ↗</a></p></noscript>
+      </div>
     </section>
-    <section class="work-section" id="work" aria-labelledby="workTitle"><span id="projects" class="anchor-alias"></span><div class="shell section-space">
-      <div class="section-kicker"><span>02 / SELECTED WORK</span><span>05 PROJECT FILES</span></div>
-      <div class="work-heading"><div><p class="eyebrow">A CLOSER LOOK AT THE BUILDS</p><h2 class="display-title" id="workTitle">SELECTED <span class="outline-type">WORK.</span></h2></div><p class="section-copy">从使用场景、关键实现到真实画面，<br>认识每个项目的具体内容。</p></div>
-      <div class="work-toolbar"><div class="filter-tabs" role="group" aria-label="筛选项目"><button type="button" data-filter="all" aria-pressed="true">全部 <span>05</span></button><button type="button" data-filter="ai" aria-pressed="false">AI 应用 <span>02</span></button><button type="button" data-filter="tools" aria-pressed="false">效率工具 <span>02</span></button><button type="button" data-filter="games" aria-pressed="false">游戏 <span>01</span></button></div><div class="case-controls"><span id="casePosition" class="micro">01 / 05</span><button id="previousCase" class="square-button" type="button" aria-label="上一个项目">←</button><button id="nextCase" class="square-button" type="button" aria-label="下一个项目">→</button></div></div>
-      <p id="selectionStatus" class="sr-only" aria-live="polite" aria-atomic="true"></p>
-      <div id="casePanel" class="case-panel" role="tabpanel" aria-labelledby="tab-shenyuan-island"><div class="case-loading">正在载入精选作品…</div></div>
-      <div id="caseTabs" class="case-tabs" role="tablist" aria-label="选择一个项目"></div>
-      <noscript><div class="noscript-projects"><p>以下为五个精选项目，可直接查看公开仓库。</p><a href="https://github.com/shijinxiang/shenyuan-island">深渊岛 ↗</a><a href="https://github.com/shijinxiang/rag">企业知识库 RAG ↗</a><a href="https://github.com/shijinxiang/open-prompt">开放题记录库 ↗</a><a href="https://github.com/shijinxiang/VoiceOps">VoiceOps ↗</a><a href="https://github.com/shijinxiang/deskpet-WDY">翻译桌宠 ↗</a></div></noscript>
-      <div class="work-footnote"><span>持续构建，记录每一次具体的实现。</span><a href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">全部公开仓库 <span aria-hidden="true">↗</span></a></div>
-    </div></section>
-    <section class="about-section shell section-space" id="about" aria-labelledby="aboutTitle">
-      <div class="section-kicker"><span>03 / ABOUT</span><span>开发、学习与创作</span></div>
-      <div class="about-layout"><div><p class="eyebrow">ALWAYS A WORK IN PROGRESS</p><h2 class="display-title" id="aboutTitle">BUILD WITH<br><span class="outline-type">CURIOSITY.</span></h2><span class="about-signature">施金翔 <span>/ SHIJINXIANG</span></span></div><div class="about-content"><p class="about-intro">我在 AI 应用与交互开发之间，<br>寻找值得动手的问题。</p><p>目前就读于广西民族大学人工智能专业。围绕 Python、FastAPI、LangChain 与 LangGraph 开发应用，实践前后端、数据持久化与容器部署，也用 Godot 与 Blender 探索游戏制作。</p><p>同时参与模型评测与数据质量工作。对我来说，搭建功能和核对结果同样重要；一个项目值得被展示，也应该经得起继续追问。</p><dl class="about-facts"><div><dt>教育</dt><dd>广西民族大学 · 人工智能本科在读</dd></div><div><dt>实践</dt><dd>AI 应用 / 桌面工具 / 游戏开发</dd></div><div><dt>经历</dt><dd>模型评测与数据质量 · 字节跳动（校企联动）</dd></div></dl></div></div>
-      <div class="tool-list" aria-label="常用技术"><span>Python</span><span>FastAPI</span><span>LangGraph</span><span>React</span><span>Electron</span><span>Godot</span><span>Blender</span><span>Docker</span></div>
+
+    <section class="section" id="practice" aria-labelledby="practiceTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="practiceTitle">WHAT I BUILD</h2>
+          <p class="section-copy">让界面、数据和运行过程接在一起。</p>
+        </div>
+        <div class="services-system">
+          <aside class="services-primer">
+            <span class="services-primer__label">PROJECT PRACTICE</span>
+            <h3>From task<br>to workflow.<br>From scene<br>to experience.</h3>
+            <p>从具体使用场景出发，把任务流程、桌面操作和交互反馈落实到可以运行的项目中。</p>
+          </aside>
+          <div class="services-stack">
+            <article class="service-lane" data-reveal>
+              <div class="service-lane__index"><span>AI</span><span>协作与检索</span></div>
+              <div class="service-lane__main"><h3>AI SYSTEMS</h3><p>组织资料、模型与角色交接，衔接知识检索、人工确认和过程追溯。</p></div>
+              <div class="service-lane__fit"><span>相关作品</span><strong>协序 / RAG / VoiceOps</strong></div>
+              <div class="tag-list"><span class="tag">LANGGRAPH</span><span class="tag">FASTAPI</span><span class="tag">SQLITE</span></div>
+            </article>
+            <article class="service-lane" data-reveal>
+              <div class="service-lane__index"><span>APP</span><span>桌面与资料</span></div>
+              <div class="service-lane__main"><h3>DESKTOP TOOLS</h3><p>把题目、截图和回复关联起来，让 OCR、翻译和本地资料管理接近日常操作。</p></div>
+              <div class="service-lane__fit"><span>相关作品</span><strong>开放题记录库 / 翻译桌宠</strong></div>
+              <div class="tag-list"><span class="tag">ELECTRON</span><span class="tag">REACT</span><span class="tag">WPF</span></div>
+            </article>
+            <article class="service-lane" data-reveal>
+              <div class="service-lane__index"><span>PLAY</span><span>场景与声音</span></div>
+              <div class="service-lane__main"><h3>INTERACTIVE</h3><p>用游戏中的生活系统与网页里的声音反馈，探索输入、状态和体验之间的关系。</p></div>
+              <div class="service-lane__fit"><span>相关作品</span><strong>深渊岛 / PULSE</strong></div>
+              <div class="tag-list"><span class="tag">GODOT</span><span class="tag">BLENDER</span><span class="tag">WEB AUDIO</span></div>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
-    <section class="process-section shell" aria-labelledby="processTitle"><div class="process-heading"><p class="eyebrow">HOW I WORK</p><h2 id="processTitle">让下一次实现，<br>有迹可循。</h2></div><ol class="process-list"><li><span>01 / DEFINE</span><h3>明确问题</h3><p>先确定使用场景、边界和要完成的流程。</p></li><li><span>02 / BUILD</span><h3>搭建实现</h3><p>把界面、数据与系统连接成可操作的版本。</p></li><li><span>03 / VERIFY</span><h3>核对体验</h3><p>检查关键路径、异常状态和真实运行画面。</p></li><li><span>04 / ITERATE</span><h3>持续迭代</h3><p>记录反馈与改动，让下一轮工作接得上。</p></li></ol></section>
-    <section class="contact-section" id="contact" aria-labelledby="contactTitle"><div class="shell"><div class="contact-top"><span class="eyebrow">HAVE A QUESTION OR AN IDEA?</span><span class="micro">LET'S KEEP BUILDING</span></div><div class="contact-layout"><h2 id="contactTitle">LET'S<br><span>BUILD.</span></h2><div><p>欢迎聊一个具体的想法，<br>也欢迎从代码开始了解我。</p><a class="button button-light" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">在 GitHub 找到我 <span aria-hidden="true">↗</span></a></div></div></div></section>
+
+    <section class="section section--tight" id="about" aria-labelledby="aboutTitle">
+      <div class="container">
+        <div class="about">
+          <div class="about__top"><span>关于施金翔</span><span>AI / SOFTWARE / INTERACTION</span></div>
+          <h2 class="about__lead" id="aboutTitle"><span class="about__line"><span>把系统连接起来，</span></span><span class="about__line"><span>把体验打磨清楚。</span></span></h2>
+          <div class="about__say">
+            <div><p class="about__body">广西民族大学人工智能专业本科在读。主要实践 Python、FastAPI、LangGraph、Electron 与 Godot，逐步连接前后端、资料处理、数据持久化和交互界面。</p><p class="about__body">也参与模型评测和数据质量工作，在实现功能的同时核对结果、记录问题并继续迭代。</p></div>
+            <ul class="about__meta"><li><span>教育</span><strong>广西民族大学 · 人工智能</strong></li><li><span>实践</span><strong>AI 应用 / 软件工具 / 游戏</strong></li><li><span>经历</span><strong>模型评测与数据质量<br>字节跳动（校企联动）</strong></li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="site-footer shell"><a class="wordmark" href="#home"><span class="brand-symbol" aria-hidden="true">S</span><span>SHIJINXIANG</span></a><span class="micro">PERSONAL PORTFOLIO / <span data-year>2026</span></span><a class="back-top" href="#home">回到顶部 ↑</a></footer>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="contact-row"><div><p class="section-label">交流与源码</p><h2 class="section-title">LET'S CONNECT</h2></div><a class="hero-link hero-link--dark" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">在 GitHub 找到我</a></div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> 施金翔</span><a href="#home">回到顶部 ↑</a></div>
+    </div>
+  </footer>
 </body>
 </html>

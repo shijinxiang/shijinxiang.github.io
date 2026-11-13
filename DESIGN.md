@@ -1,26 +1,14 @@
-# Editorial portfolio · 2026-11-13
+# 当前组件接入
 
-Reference: https://nowsome.mv/ and its /work page, inspected in a real browser. This is an original implementation inspired by its layout vocabulary, not a copy of its code, commercial claims, branding or project assets.
+本版依据用户提供的 nowsome-reference-20261113-052421 参考包实现。导航、首屏、作品展台、右侧列表、开发方向和关于区使用其 DOM 结构与选用的 CSS 规则。
 
-## Direction
-Off-white #fafaf8 / ink #151515 / fine grey rules. Large condensed Bebas Neue headlines, outlined middle words, light offset shadows, small monospaced labels and numbered project files. Chinese uses Noto Sans SC; supporting Latin uses Space Grotesk. Static project photography supplies color. No video or animated media.
+- reference-components.css 保留对应组件的选择器与响应式参数。
+- site.css 适配中文、真实项目图片、移动菜单和本站入口。
+- project-components.css 衔接已有项目详情地址。
+- portfolio.js 使用本地交互驱动导航展开、筛选、键盘选择与图片查看。
 
-The existing GitHub Pages URL remains the publication target under the user's standing authorization. Active pages use buildless HTML/CSS/JS, matching the established deployment. Sites presentation guidance and local design-taste-frontend guidance inform responsive layout and interaction quality; the explicit reference determines the large headline style. Default framework and animation recipes are not introduced into an existing static portfolio.
+桌面作品舞台在 1440px 下测得约 341px 与 491px 两列，项目列表为 300px，平板与手机纵向排列。导航支持居中与滚动展开状态。减少动态偏好下以静态呈现。
 
-## Structure
-1. Identity and latest-game preview, with a direct route to curated work.
-2. Three practice areas with editorial rows.
-3. Five selected project files: manual category filters, accessible tabs, previous/next buttons, and deep links.
-4. About, technical practice and a GitHub contact route.
-5. Individual project pages with context, approach, results, features, flow and authentic imagery. Native image dialogs support keyboard dismissal and focus restoration.
+本次精选为协序、深渊岛、RAG、VoiceOps、开放题记录库、翻译桌宠和 PULSE。版本与介绍依据当前公开 README 及发布页更新，图片来源见 ASSET-SOURCES.md。
 
-## Curation
-Included: shenyuan-island, rag, open-prompt, VoiceOps, deskpet-WDY.
-Excluded from the curated view: website, wwweb and myweb (basic/static learning pages); dongVSjin and heroVSgrandpa (early small game prototypes). No star count or artificial outcome metric is used as a quality proxy.
-
-The game leads the new edition. Its repository documents v0.2.0, Godot 4.7.2 / Forward+, Windows release and gameplay systems. This portfolio does not assert sole authorship, fresh production validation or third-party-asset ownership. The other four descriptions preserve their existing factual and demo boundaries.
-
-## Accessibility and implementation
-Readable HTML copy, local fonts and images, visible focus states, standard links, explicit filter state, roving project-tab focus, image descriptions, native dialogs, reduced-motion support, an explicit invalid-project state, and responsive single-column layouts. Empty generic links and a fake contact form are avoided; GitHub is the real public contact destination.
-
-Historic cinema files are not loaded by current pages. Previous source is preserved on local branch archive/cinematic-2026-11-13 and in Git history.
+深渊岛使用介绍页的七张实机宣传图，翻译桌宠使用其仓库的桌宠素材。应用图片中的示例状态在对应说明中标注。
