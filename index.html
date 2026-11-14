@@ -11,13 +11,15 @@
   <meta property="og:url" content="https://shijinxiang.github.io/">
   <meta property="og:image" content="https://shijinxiang.github.io/assets/projects/game-fishing.webp">
   <link rel="canonical" href="https://shijinxiang.github.io/">
-  <link rel="icon" href="./assets/favicon.svg?v=7" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon.svg?v=8" type="image/svg+xml">
   <link rel="preload" href="./assets/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./assets/fonts/noto-sans-sc.woff2?v=7" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./reference-components.css?v=7">
-  <link rel="stylesheet" href="./site.css?v=7">
-  <script src="./selected-projects.js?v=7" defer></script>
-  <script src="./portfolio.js?v=7" defer></script>
+  <link rel="preload" href="./assets/fonts/noto-sans-sc.woff2?v=8" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./reference-components.css?v=8">
+  <link rel="stylesheet" href="./site.css?v=8">
+  <link rel="stylesheet" href="./motion.css?v=8">
+  <script src="./selected-projects.js?v=8" defer></script>
+  <script src="./portfolio.js?v=8" defer></script>
+  <script src="./motion.js?v=8" defer></script>
   <title>施金翔 · 软件、工具与交互作品</title>
 </head>
 <body class="portfolio-page" id="home">
@@ -25,14 +27,14 @@
   <header class="nav nav--clustered" id="siteNav">
     <div class="nav-inner">
       <a class="brand" href="./" aria-label="施金翔的个人主页">
-        <span class="brand-mark"><img src="./assets/favicon.svg?v=7" alt="" width="34" height="34"></span>
+        <span class="brand-mark"><img src="./assets/favicon.svg?v=8" alt="" width="34" height="34"></span>
         <span class="brand-word">SHIJINXIANG</span>
       </a>
       <div class="nav-spacer"></div>
       <button class="nav-menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" hidden>菜单 <span aria-hidden="true">＋</span></button>
       <nav class="nav-links" id="mainNav" aria-label="主导航">
         <a class="nav-link" href="#work">精选作品</a>
-        <a class="nav-link" href="#practice">开发方向</a>
+        <a class="nav-link" href="#practice">项目简览</a>
         <a class="nav-link" href="#about">关于我</a>
         <a class="nav-link nav-cta" href="https://github.com/shijinxiang" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
       </nav>
@@ -81,7 +83,7 @@
             <p class="hero-copy">我在广西民族大学学习人工智能，围绕资料、模型和工作流做应用，也用 Godot 与 Web Audio 探索交互体验。</p>
           </div>
           <div class="hero-actions">
-            <a class="hero-link hero-link--dark" href="#work">浏览精选项目</a>
+            <a class="hero-link hero-link--dark" href="#practice">滚动浏览项目</a>
             <a class="hero-link" href="#project-shenyuan-island">探索《深渊岛》</a>
           </div>
           <div class="hero-services" aria-label="项目快速入口">
@@ -93,6 +95,33 @@
         </div>
       </div>
     </section>
+
+    <section class="section project-notes-section" id="practice" aria-labelledby="practiceTitle">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="practiceTitle">PROJECT NOTES</h2>
+          <p class="section-copy">滚动卡片区域，逐项了解七个项目。通过项目名称或详情入口继续查看。</p>
+        </div>
+        <div class="services-system project-scroll-layout">
+          <aside class="services-primer project-notes-primer">
+            <span class="services-primer__label">项目简览</span>
+            <h3>From task<br>to workflow.<br>From scene<br>to experience.</h3>
+            <p>从多模型协作、知识检索与桌面工具，到海岛生活和音乐交互。</p>
+            <div class="notes-reading-status">
+              <span id="notesCurrentName">协序工作台</span>
+              <span id="notesPosition">01 / 07</span>
+            </div>
+            <div class="notes-progress" aria-hidden="true"><span id="notesProgress"></span></div>
+          </aside>
+          <div class="project-scroll" id="projectScroll" role="region" aria-label="项目简介滚动区" tabindex="0">
+            <div class="services-stack project-notes-list" id="projectNotes">
+              <p class="case-loading">正在载入项目简介…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <section class="section section--tight" id="work" aria-labelledby="workTitle">
       <span id="projects" class="anchor-alias"></span>
@@ -126,41 +155,7 @@
       </div>
     </section>
 
-    <section class="section" id="practice" aria-labelledby="practiceTitle">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="practiceTitle">WHAT I BUILD</h2>
-          <p class="section-copy">让界面、数据和运行过程接在一起。</p>
-        </div>
-        <div class="services-system">
-          <aside class="services-primer">
-            <span class="services-primer__label">PROJECT PRACTICE</span>
-            <h3>From task<br>to workflow.<br>From scene<br>to experience.</h3>
-            <p>从具体使用场景出发，把任务流程、桌面操作和交互反馈落实到可以运行的项目中。</p>
-          </aside>
-          <div class="services-stack">
-            <article class="service-lane" data-reveal>
-              <div class="service-lane__index"><span>AI</span><span>协作与检索</span></div>
-              <div class="service-lane__main"><h3>AI SYSTEMS</h3><p>组织资料、模型与角色交接，衔接知识检索、人工确认和过程追溯。</p></div>
-              <div class="service-lane__fit"><span>相关作品</span><strong>协序 / RAG / VoiceOps</strong></div>
-              <div class="tag-list"><span class="tag">LANGGRAPH</span><span class="tag">FASTAPI</span><span class="tag">SQLITE</span></div>
-            </article>
-            <article class="service-lane" data-reveal>
-              <div class="service-lane__index"><span>APP</span><span>桌面与资料</span></div>
-              <div class="service-lane__main"><h3>DESKTOP TOOLS</h3><p>把题目、截图和回复关联起来，让 OCR、翻译和本地资料管理接近日常操作。</p></div>
-              <div class="service-lane__fit"><span>相关作品</span><strong>开放题记录库 / 翻译桌宠</strong></div>
-              <div class="tag-list"><span class="tag">ELECTRON</span><span class="tag">REACT</span><span class="tag">WPF</span></div>
-            </article>
-            <article class="service-lane" data-reveal>
-              <div class="service-lane__index"><span>PLAY</span><span>场景与声音</span></div>
-              <div class="service-lane__main"><h3>INTERACTIVE</h3><p>用游戏中的生活系统与网页里的声音反馈，探索输入、状态和体验之间的关系。</p></div>
-              <div class="service-lane__fit"><span>相关作品</span><strong>深渊岛 / PULSE</strong></div>
-              <div class="tag-list"><span class="tag">GODOT</span><span class="tag">BLENDER</span><span class="tag">WEB AUDIO</span></div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <section class="section section--tight" id="about" aria-labelledby="aboutTitle">
       <div class="container">

@@ -191,9 +191,9 @@
     }
 
     function renderReel() {
-      reel.innerHTML = visibleProjects().map(project => `
+      reel.innerHTML = visibleProjects().map((project, index) => `
         <button class="work-reel__item" id="tab-${escapeHTML(project.id)}" type="button"
-          role="tab" data-project="${escapeHTML(project.id)}" aria-controls="casePanel"
+          role="tab" style="--reveal-index:${index}" data-project="${escapeHTML(project.id)}" aria-controls="casePanel"
           aria-selected="false" tabindex="-1">
           <span>${escapeHTML(project.number)}</span>
           <strong>${escapeHTML(project.shortName || project.name)}</strong>
@@ -261,6 +261,32 @@
     renderPanel();
     followProjectHash(true);
   }
+
+
+  function initializeProjectNotes() {
+    const container = query('#projectNotes');
+    if (!container) return;
+    container.innerHTML = projects.map(project => `
+      <article class="service-lane project-note-card" data-notes-card data-project-id="${escapeHTML(project.id)}">
+        <div class="service-lane__index">
+          <span>${escapeHTML(project.number)}</span>
+          <span>${escapeHTML(categories[project.category])}</span>
+        </div>
+        <div class="service-lane__main">
+          <h3><a href="${projectUrl(project)}">${escapeHTML(project.english)}</a></h3>
+          <p class="note-project-name">${escapeHTML(project.name)}</p>
+          <p>${escapeHTML(project.summary)}</p>
+          <a class="work-link" href="${projectUrl(project)}">查看项目详情 ↗</a>
+        </div>
+        <div class="service-lane__fit">
+          <span>当前版本</span><strong>${escapeHTML(project.status)}</strong>
+          <span>运行平台</span><strong>${escapeHTML(project.platform)}</strong>
+        </div>
+        ${tagList(project)}
+      </article>
+    `).join('');
+  }
+
 
   function initializeProjectPage() {
     const main = query('#projectMain');
@@ -369,29 +395,12 @@
     });
   }
 
-  function initializeSectionMotion() {
-    if (motionPreference.matches || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        if (!motionPreference.matches) {
-          entry.target.animate([
-            {opacity: .5, transform: 'translateY(22px)'},
-            {opacity: 1, transform: 'translateY(0)'}
-          ], {duration: 720, easing: 'cubic-bezier(.16,1,.3,1)'});
-        }
-        observer.unobserve(entry.target);
-      });
-    }, {threshold: .15});
-    document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
-  }
-
   document.querySelectorAll('[data-year]').forEach(element => {
     element.textContent = new Date().getFullYear();
   });
   initializeNavigation();
   initializeShowroom();
   initializeProjectPage();
-  initializeSectionMotion();
+  initializeProjectNotes();
   watchImages();
 })();
